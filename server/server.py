@@ -5,7 +5,7 @@ import paho.mqtt.client as mqtt
 
 TABLE_NAME = 'humi0'
 
-conn = sqlite3.connect('humi.db')
+conn = sqlite3.connect('../humi.db')
 cursor = conn.cursor()
 
 # query = "select name from sqlite_master where type = 'table'"
@@ -29,10 +29,10 @@ def on_connect(client, userdata, flags, rc):
 
 
 def on_message(client, userdata, msg):
-    print(f'receive: {msg.payload.decode("utf-8")}')
+    print('receive: {}'.format(msg.payload.decode("utf-8")))
     adc_value = msg.payload.decode("utf-8")
     dt = datetime.datetime.now().strftime('%y/%m/%d %H:%M:%S')
-    query = f"insert into {TABLE_NAME} values ('{dt}', '{adc_value}')"
+    query = "insert into {} values ('{}', '{}')".format(TABLE_NAME, dt, adc_value)
     cursor.execute(query)
     conn.commit()
 
