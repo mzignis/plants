@@ -1,3 +1,4 @@
-from mqtt_connection import send_humi_value
+from m_utils import do_connect
 
-send_humi_value()
+do_connect()
+
