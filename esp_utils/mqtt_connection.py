@@ -4,9 +4,21 @@ import time
 import machine
 
 
-CLIENT_ID = 'humi0'
+CLIENT_ID = 'plant0'
 SERVER = '192.168.0.101'
-TOPIC = 'humi0-value'
+TOPIC = 'humi-request'
+
+
+def on_message(topic, msg, retained):
+    print(msg)
+
+
+client = MQTTClient(CLIENT_ID, SERVER)
+client.connect()
+client.subscribe(TOPIC)
+client.set_callback(on_message)
+
+
 
 def send_humi_value():
     do_connect()
@@ -27,4 +39,7 @@ def send_humi_value():
         client.publish(TOPIC, '{}'.format(humi0_value))
 
         time.sleep(30)
+
+
+
 

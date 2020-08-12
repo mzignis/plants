@@ -5,6 +5,7 @@ from server import flask_app
 
 from app import dash_app
 from layouts import layouts
+import callbacks
 
 dash_app.layout = html.Div([
     dcc.Location(id='url', refresh=False),

@@ -1,26 +1,35 @@
-import time
-import paho.mqtt.client as paho
+import paho.mqtt.client as mqtt
 
 
 
-def on_message(client, userdata, message):
-    print("received message = ", str(message.payload.decode("utf-8")))
+class MyClient(mqtt.Client):
+
+    def __init__(self, client_id):
+        super().__init__(client_id)
+
+        self.adc_value = None
+
+    def on_msg(self, client, userdata, message):
+        self.adc_value = str(message.payload.decode("utf-8"))
 
 
-client= paho.Client("client-001")
-client.on_message = on_message
+    def main(self):
+        self.on_message = self.on_msg
+        self.connect('192.168.0.101', 1883, 60)
+        self.publish('request', 'adc')
+        self.subscribe('humi-value')
+
+        self.loop_start()
+
+        while self.adc_value is None:
+            pass
+
+        self.loop_stop()
+        self.disconnect()
+
+        return self.adc_value
 
 
-print("connecting to broker")
-client.connect('localhost', 1883, 60)
-client.subscribe('humi-value')
 
-client.loop_start()
-
-print("publishing")
-client.publish("request", "adc")
-time.sleep(1)
-
-
-client.disconnect()
-client.loop_stop()
+client = MyClient('mac')
+client.main()
