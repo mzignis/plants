@@ -18,6 +18,6 @@ index_layout = html.Div([
     navbar,
     dbc.Container(body, id='index-body'),
 
-    dcc.Interval(id='index-timer', interval=15000),
+    dcc.Interval(id='index-timer', interval=5000),
     html.Div([], id='index-placeholder')
 ])
