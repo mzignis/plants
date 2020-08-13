@@ -18,11 +18,12 @@ engine.value(0)
 
 def on_message(topic, msg):
     msg = msg.decode()
-    print(msg)
+    print(time.ticks_ms(), msg)
 
     if msg == 'adc':
         adc_value = adc.read()
         client.publish(TOPIC, str(adc_value))
+        time.sleep(0.05)
 
     elif msg.split('-')[0] == 'watering':
         action = msg.split('-')[1]

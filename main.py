@@ -2,6 +2,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from server import flask_app
+import threading
+from server.server import server_main_loop
 
 from app import dash_app
 from layouts import layouts
@@ -22,4 +24,7 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
+    server_thread = threading.Thread(target=server_main_loop)
+    server_thread.start()
+
     flask_app.run(debug=True)

@@ -7,7 +7,6 @@ from layouts.plant_widget import card1, card2, card3, card4
 
 
 
-
 body = html.Div([
     html.Br(),
     dbc.CardDeck([card1, card2, card3, card4]),
