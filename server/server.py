@@ -5,7 +5,8 @@ import time
 import paho.mqtt.client as mqtt
 
 
-TABLE_NAME = 'humi0'
+DB_NAME = 'plants.db'
+TABLE_NAME = 'soil_humidity'
 TOPIC = 'humi-value'
 BROKER_IP = '192.168.0.101'
 
@@ -16,14 +17,15 @@ def server_main_loop():
         print('Connected with result code {0}'.format(rc))
         client.subscribe(TOPIC)
 
-
     def on_message(client, userdata, msg):
         print('receive: {}'.format(msg.payload.decode("utf-8")))
-        conn = sqlite3.connect('humi.db')
+        conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         adc_value = msg.payload.decode("utf-8")
+        soil_humidity = '{:.2f} %'.format(((1024. - float(adc_value)) /  1024.) * 100)
         dt = datetime.datetime.now().strftime('%y/%m/%d %H:%M:%S')
-        query = "insert into {} values ('{}', '{}')".format(TABLE_NAME, dt, adc_value)
+        query = "insert into {}(plant_id, adc_value, soil_humidity, datetime) " \
+                "values ('{}', '{}', '{}', '{}')".format(TABLE_NAME, 1, adc_value, soil_humidity, dt)
         try:
             cursor.execute(query)
             conn.commit()

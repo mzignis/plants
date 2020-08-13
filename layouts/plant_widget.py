@@ -33,7 +33,7 @@ card1 = dbc.Card([
             ]
         ),
     ],
-    id='plant1-card',
+    id='card1',
     color="success",
     outline=True)
 
@@ -47,7 +47,7 @@ card2 = dbc.Card([
             ]
         ),
     ],
-    id='plant2-card',
+    id='card2',
     color="success",
     outline=True)
 
@@ -62,7 +62,7 @@ card3 = dbc.Card([
             ]
         ),
     ],
-    id='plant3-card',
+    id='card3',
     color="success",
     outline=True)
 
@@ -77,6 +77,6 @@ card4 = dbc.Card([
             ]
         ),
     ],
-    id='plant4-card',
+    id='card4',
     color="success",
     outline=True)
