@@ -13,7 +13,7 @@ Application is separate on two parts:
 ![main page](https://raw.githubusercontent.com/mzignis/plants/master/img/main-page.png)
 
 ## Plants details
-![plant page](https://raw.githubusercontent.com/mzignis/plants/master/img/main-page.png)
+![plant page](https://raw.githubusercontent.com/mzignis/plants/master/img/plant-page.png)
 
 ## Electronic 
 
