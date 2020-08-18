@@ -11,7 +11,7 @@ class MyClient(mqtt.Client):
         self.ADC_MAX = 1024
 
         self.on_message = self.on_msg
-        self.connect('192.168.0.101', 1883, 60)
+        # self.connect('192.168.0.101', 1883, 60)
 
     def on_msg(self, client, userdata, message):
         self.adc_value = ((self.ADC_MAX - float(message.payload.decode("utf-8")))/ self.ADC_MAX ) * 100
