@@ -10,10 +10,10 @@ Application is separate on two parts:
     
 
 ## Main page
-![main page](http://url/to/img.png)
+![main page](https://raw.githubusercontent.com/mzignis/plants/master/img/main-page.png)
 
 ## Plants details
-![plant page](http://url/to/img.png)
+![plant page](https://raw.githubusercontent.com/mzignis/plants/master/img/main-page.png)
 
 ## Electronic 
 
