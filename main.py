@@ -19,6 +19,10 @@ dash_app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/dash/':
         return layouts_['index']
+
+    elif pathname == '/dash/plant1':
+        return layouts_['plant1']
+
     else:
         return layouts_['404']
 

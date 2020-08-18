@@ -1,11 +1,17 @@
-from app import dash_app
-from dash.dependencies import Output, Input, State
-import dash_bootstrap_components as dbc
-import pandas as pd
 import sqlite3
+
+import pandas as pd
+import plotly.express as px
+from dash.dependencies import Output, Input
+
+import callbacks.plants
+from app import dash_app
+from layouts.plants import dropdown_options
 from tools import relative_pressure
 
-from server.client import MyClient
+
+table_columns = ['adc_value', 'air_temperature', 'air_pressure', 'air_humidity', 'rain', 'light']
+values_dict = dict(zip(dropdown_options, table_columns))
 
 
 @dash_app.callback([Output("card1-humi-value", "children"), Output('index-temperature', 'children'),
@@ -36,20 +42,24 @@ def index_timer_callback(args):
     return soil_humidity, temperature, pressure, humidity
 
 
-@dash_app.callback([Output("card1-button", "children"), Output("card1-button", "color"), Output("card1", 'color'),
-                    Output("card1-button", "disabled"), Output("card1-interval", "disabled")],
-                   [Input("card1-button", "n_clicks"), Input("card1-interval", "n_intervals")],
-                   [State("card1-button", "children")])
-def on_button_clicked(n_clicks, n_intervals, children):
-    print(n_clicks, n_intervals, children)
-    client = MyClient('mac')
-    if not n_clicks:
-        # client.stop_watering()
-        return 'Watered!', 'success', 'success', False, True
+@dash_app.callback(Output('plant1-graph', 'figure'),
+                   [Input('plant1-dropdown', 'value')])
+def on_plant1_drop_down(args):
+    value = values_dict[args]
 
-    if children == 'Watered!':
-        # client.start_watering()
-        return [dbc.Spinner(size="sm"), " Watering..."], 'primary', 'primary', True, False
-    else:
-        # client.stop_watering()
-        return 'Watered!', 'success', 'success', False, True
+    conn = sqlite3.connect('plants.db')
+    query = 'select datetime, {} from soil_humidity ' \
+            'where plant_id == 1 ' \
+            'order by datetime desc ' \
+            'limit 100'.format(value)
+    df = pd.read_sql_query(query, conn).drop_duplicates(subset=['datetime']).reset_index(drop=True)
+    fig = px.line(x=df['datetime'], y=df['{}'.format(value)].astype(float), line_shape='spline')
+
+    return fig
+
+
+
+
+
+if __name__ == '__main__':
+    pass

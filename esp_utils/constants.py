@@ -1,5 +1,5 @@
 CLIENT_ID = 'plants'
-SERVER_IP = '192.168.0.102'
+SERVER_IP = '192.168.0.105'
 SUBSCRIPTION = b'request'
 TOPIC = b'humi-value'
 

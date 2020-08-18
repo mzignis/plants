@@ -44,6 +44,7 @@ card2 = dbc.Card([
                 html.H6("Plant2 soil humidity", className="card-title"),
                 html.H1("--.-- %", id='card2-humi-value', className="card-text",),
                 dbc.Button("Watered!", id='card2-button', color="success", className="mt-auto"),
+                dcc.Interval(id='card2-interval', interval=5000, disabled=False)
             ]
         ),
     ],
@@ -59,6 +60,8 @@ card3 = dbc.Card([
                 html.H6("Plant3 soil humidity", className="card-title"),
                 html.H1("--.-- %", id='card3-humi-value', className="card-text",),
                 dbc.Button("Watered!", id='card3-button', color="success", className="mt-auto"),
+                dcc.Interval(id='card3-interval', interval=5000, disabled=False)
+
             ]
         ),
     ],
@@ -74,6 +77,8 @@ card4 = dbc.Card([
                 html.H6("Plant4 soil humidity", className="card-title"),
                 html.H1("--.-- %", id='card4-humi-value', className="card-text",),
                 dbc.Button("Watered!", id='card4-button', color="success", className="mt-auto"),
+                dcc.Interval(id='card4-interval', interval=5000, disabled=False)
+
             ]
         ),
     ],
